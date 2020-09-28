@@ -197,6 +197,15 @@ abstract class FlexiblePresenter implements FlexiblePresenterContract, Arrayable
         return $this->resource->{$relationship};
     }
 
+    public function whenPivotLoaded(string $table, $value)
+    {
+        if ($this->resource->pivot && ($this->resource->pivot instanceof $table || $this->resource->pivot->getTable() === $table)) {
+            return value($value);
+        }
+
+        return;
+    }
+
     protected function noResourceSpecified()
     {
         return $this->withoutResource === false
